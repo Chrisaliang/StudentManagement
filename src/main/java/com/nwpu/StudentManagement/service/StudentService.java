@@ -1,12 +1,14 @@
 package com.nwpu.StudentManagement.service;
 
 import com.nwpu.StudentManagement.dao.StudentDao;
+import com.nwpu.StudentManagement.exceptions.StudentEmptyNameException;
+import com.nwpu.StudentManagement.exceptions.StudentNotExistException;
 import com.nwpu.StudentManagement.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -18,19 +20,27 @@ public class StudentService {
         this.studentDao = studentDao;
     }
 
+    public Optional<Student> getStudentById(long id) {
+        return studentDao.findById(id);
+    }
+
     public List<Student> getAllStudents() {
-        return studentDao.selectAllStudent();
+        return (List<Student>) studentDao.findAll();
     }
 
-    public int addStudent(Student student) {
-        return studentDao.insertStudent(student);
+    public Student addStudent(Student student) {
+        if (student.getName().isEmpty())
+            throw new StudentEmptyNameException("Student name can not be empty!");
+        return studentDao.save(student);
     }
 
-    public int updateStudent(Student student) {
-        return studentDao.updateStudent(student);
+    public Student updateStudent(Student student) {
+        if (student.getId() == null || !studentDao.existsById(student.getId()))
+            throw new StudentNotExistException("can not find student id");
+        return studentDao.save(student);
     }
 
-    public int deleteStudentById(UUID id) {
-        return studentDao.deleteStudentById(id);
-    }
+//    public int deleteStudentById(long id) {
+//        return studentDao.deleteStudentById(id);
+//    }
 }

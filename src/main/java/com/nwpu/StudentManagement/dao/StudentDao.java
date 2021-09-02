@@ -1,20 +1,17 @@
 package com.nwpu.StudentManagement.dao;
 
 import com.nwpu.StudentManagement.model.Student;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+public interface StudentDao extends CrudRepository<Student, Long> {
 
-public interface StudentDao {
-
-    List<Student> selectAllStudent();
-
-    Optional<Student> selectStudentById(UUID id);
-
-    int insertStudent(Student student);
-
-    int updateStudent(Student student);
-
-    int deleteStudentById(UUID id);
+//    List<Student> selectAllStudent();
+//
+//    Optional<Student> selectStudentById(UUID id);
+//
+//    int insertStudent(Student student);
+//
+//    int updateStudent(Student student);
+//
+//    int deleteStudentById(UUID id);
 }
