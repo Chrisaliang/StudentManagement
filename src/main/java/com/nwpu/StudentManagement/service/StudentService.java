@@ -39,8 +39,4 @@ public class StudentService {
             throw new StudentNotExistException("can not find student id");
         return studentDao.save(student);
     }
-
-//    public int deleteStudentById(long id) {
-//        return studentDao.deleteStudentById(id);
-//    }
 }

@@ -13,13 +13,8 @@ public class Student {
     @Column(nullable = false, name = "name")
     private String name;
 
-    public Student(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Student() {
-    }
+    @Column(name = "class_id")
+    private Long class_id;
 
     public Long getId() {
         return id;
@@ -37,11 +32,20 @@ public class Student {
         this.name = name;
     }
 
+    public Long getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(long class_id) {
+        this.class_id = class_id;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", class_id=" + class_id +
                 '}';
     }
 }

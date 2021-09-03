@@ -22,22 +22,22 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getAllStudent() {
+    public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
-    @PostMapping
-    public String addStudent(@RequestBody Student student) {
-        studentService.addStudent(student);
-        return "Student added";
-    }
+//    @PostMapping
+//    public String addStudent(@RequestBody Student student) {
+//        studentService.addStudent(student);
+//        return "Student added";
+//    }
 
     @PostMapping
     @RequestMapping("/register")
     public ResponseEntity<String> registerStudent(@RequestBody Student student) {
         try {
             Student s = studentService.addStudent(student);
-            return ResponseEntity.ok("Registered student: " + student);
+            return ResponseEntity.ok("Registered student: " + s);
         } catch (StudentEmptyNameException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
