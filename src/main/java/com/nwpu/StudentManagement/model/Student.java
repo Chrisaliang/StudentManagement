@@ -13,8 +13,17 @@ public class Student {
     @Column(nullable = false, name = "name")
     private String name;
 
-    @Column(name = "class_id")
-    private Long class_id;
+    @ManyToOne
+    @JoinColumn(name = "university_class_id")
+    private UniversityClass universityClass;
+
+    public UniversityClass getUniversityClass() {
+        return universityClass;
+    }
+
+    public void setUniversityClass(UniversityClass universityClass) {
+        this.universityClass = universityClass;
+    }
 
     public Long getId() {
         return id;
@@ -32,20 +41,12 @@ public class Student {
         this.name = name;
     }
 
-    public Long getClass_id() {
-        return class_id;
-    }
-
-    public void setClass_id(long class_id) {
-        this.class_id = class_id;
-    }
-
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", class_id=" + class_id +
+                ", universityClass=" + universityClass +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.nwpu.StudentManagement.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "university_class")
@@ -15,6 +16,9 @@ public class UniversityClass {
 
     @Column(nullable = false, name = "number")
     private int number;
+
+    @OneToMany(mappedBy = "universityClass")
+    private List<Student> students;
 
     public Long getId() {
         return id;

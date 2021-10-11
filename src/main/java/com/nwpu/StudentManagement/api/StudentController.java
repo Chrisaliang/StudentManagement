@@ -1,6 +1,8 @@
 package com.nwpu.StudentManagement.api;
 
 import com.nwpu.StudentManagement.exceptions.StudentEmptyNameException;
+import com.nwpu.StudentManagement.exceptions.StudentNotExistException;
+import com.nwpu.StudentManagement.exceptions.UniversityClassException;
 import com.nwpu.StudentManagement.model.Student;
 import com.nwpu.StudentManagement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,6 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-//    @PostMapping
-//    public String addStudent(@RequestBody Student student) {
-//        studentService.addStudent(student);
-//        return "Student added";
-//    }
-
     @PostMapping
     @RequestMapping("/register")
     public ResponseEntity<String> registerStudent(@RequestBody Student student) {
@@ -42,6 +38,19 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
 
+    }
+
+    @PostMapping(path = "assign/{sid}/{cid}")
+    public ResponseEntity<String> assignClass(@PathVariable("sid") Long studentId,
+                                              @PathVariable("cid") Long classId) {
+        try {
+            Student student = studentService.assignClass(studentId, classId);
+            return ResponseEntity.ok("assigned class " + student.toString());
+        } catch (StudentNotExistException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (UniversityClassException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PutMapping

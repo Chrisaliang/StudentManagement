@@ -29,7 +29,7 @@ public class UniversityClassService {
     }
 
     public UniversityClass addClass(UniversityClass universityClass) {
-        if (universityClass.getYear() < Calendar.getInstance().get(Calendar.YEAR))
+        if (universityClass.getYear() < (Calendar.getInstance().get(Calendar.YEAR)) - 10)
             throw new UniversityClassException("can not add a past class");
         if (universityClass.getYear() > Calendar.getInstance().get(Calendar.YEAR) + 10)
             throw new UniversityClassException("can not add a far future class");
